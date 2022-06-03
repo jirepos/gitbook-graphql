@@ -1,4 +1,4 @@
-# Query와 Mutation 요청하기 
+# Query와 Mutation 사용하기 
 
 이 글에서는 GraphQL 서버에 쿼리하는 방법에 대해 자세히 배운다. 
 
@@ -410,6 +410,7 @@ mutation {
 }
 ```
 
+
 ### Input 사용하기 
 다음과 같이 Resolver를 작성한다. 
 ```java
@@ -463,7 +464,95 @@ mutation {
 }
 ```
 
+### 다른 Input 내장하기 
 
+스키마에 Input을 정의한다. 
+```
+input AddressInput { 
+  city: String
+}
+
+input UserInput {
+    id: ID
+    name: String
+    age: Int
+    address: AddressInput 
+}
+```
+반환값이 User  타입도 다른 타입을 포함한다. 
+```
+type Address { 
+  city : String 
+}
+type User {
+    id: ID
+    name: String
+    age: Int
+    add
+}
+```
+
+Input에 대응하는 클래스를 정의한다. 그런데 자바에서는 필드가 동일하다면 따로 Input 클래스를 작성할 필요는 없다. 
+
+
+```java
+@Getter
+@Setter
+@Builder
+public class UserInput {
+  String id; 
+  String name; 
+  int age; 
+  Address address; 
+  public UserInput() {
+  }
+  public UserInput(String id, String name, int age, Address address) {
+    this.id = id;
+    this.name = name;
+    this.age = age;
+    this.address = address; 
+  }
+}
+```
+Mutation Resolver에 메서드를 정의한다. 
+```java
+    public User addUserWithObject(UserInput user) {
+      return new User(user.getId(), user.getName(), user.getAge(), user.getAddress());
+    }
+```
+
+
+
+
+다음과 같이 mutation을 작성한다. 
+```
+mutation {
+  addUserWithObject(user: {id: "111", name:"Hong", age: 10, address:{ city : "Seoul"} }) {
+    id,
+    name,
+    age,
+    address { 
+      city
+    }
+  }
+}
+```
+
+결과는 다음과 같다. 
+```
+{
+  "data": {
+    "addUserWithObject": {
+      "id": "111",
+      "name": "Hong",
+      "age": 10,
+      "address": {
+        "city": "Seoul"
+      }
+    }
+  }
+}
+```
 
 ## References
 [GraphQL schema basics](https://www.apollographql.com/docs/apollo-server/schema/schema/#the-query-type)       

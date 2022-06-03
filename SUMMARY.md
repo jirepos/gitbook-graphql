@@ -7,7 +7,9 @@
 * [Input](./graphql-04-input.md)
 * [GraphQL Java](./graphql-05-java.md)
 * [GraphQL Schema file과 Resolver를 여러개로 분리](./graphql-06-multiple-schema.md)
-* [Query와 Mutation 요청하기 ](./graphql-07-query-mutation-usage.md)
+* [Query와 Mutation 사용하기](./graphql-07-query-mutation-usage.md)
+* [Enumm,Union](./graphql-08-query-enum-union.md)
+* [Query와 Mutation 구문](./graphql-09-query-mutation-syntax.md)
 * [GraphQL 문서화](./graphql-99-documentation.md)
 
 
