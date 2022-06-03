@@ -2,8 +2,13 @@
 
 * [GraphQL이란?](./graphql-01-spring.md)    
 * [SpringBoot에서 GraphQL 사용](./graphql-01-spring.md)
-
-
+* [스키마 & 타입](./graphql-02-schema-type.md)
+* [쿼리 & 뮤테이션](./graphql-03-query-mutation.md)
+* [Input](./graphql-04-input.md)
+* [GraphQL Java](./graphql-05-java.md)
+* [GraphQL Schema file과 Resolver를 여러개로 분리](./graphql-06-multiple-schema.md)
+* [Query와 Mutation 요청하기 ](./graphql-07-query-mutation-usage.md)
+* [GraphQL 문서화](./graphql-99-documentation.md)
 
 
 

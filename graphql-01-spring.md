@@ -250,14 +250,3 @@ query {
 [Getting Started with GraphQL and Spring Boot](https://www.baeldung.com/spring-graphql)    
 [graphql-java-kickstart/graphql-spring-boot](https://github.com/graphql-java-kickstart/graphql-spring-boot)
     
-
-
-
-- Schema 확장자 : 모든 GraphQL Schema 의 확장자는 *.graphqls 로 설정되어야 합니다.
-- Query : 읽기 연산을 정의함
-- Mutation : 쓰기 연산을 정의함
-- type : 응답값을 정의함
-- input : 파라미터값을 정의함
-- type, input 의 혼용은 불가능 함 : 2개의 값이 정확히 동일해도 각각 정의 내려야 함.
-- 타입명 뒤에 ! : null 값을 허용하지 않겠다는 의미임
-- 루트 쿼리(Root Query)와 루트 뮤테이션(Root Mutation)에 대한 정의는 하나만 존재해야 합니다.
