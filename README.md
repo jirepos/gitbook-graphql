@@ -89,7 +89,7 @@ query {
 | Updating/deleting data | PUT/PATCH/DELETE | mutation |
 | Watching/subscribing to data | - | subscription |
 
-
+![](.gitbook/assets/gql-001.png)
 
 
  ### 쿼리/뮤테이션(query/mutation)
