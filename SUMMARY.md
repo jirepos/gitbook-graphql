@@ -1,5 +1,5 @@
 # 목차 
-
+* [GraphQL 개요](./README.md)    
 * [GraphQL이란?](./graphql-01-spring.md)    
 * [SpringBoot에서 GraphQL 사용](./graphql-01-spring.md)
 * [스키마 & 타입](./graphql-02-schema-type.md)

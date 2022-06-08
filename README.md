@@ -2,6 +2,65 @@
 
 GraphQL이 무엇인지 살펴 볼 것이다. 
 
+**GraphQL vs REST**     
+REST API는 다양한 End point를 가진다. API 이름 짖는 것도 힘들다. 
+
+예를 들면, 다음과 같이 요청을 한다. 
+
+```
+/api/user?id=1
+```
+
+응답은 이렇게 온다. 
+```json
+{
+  "id": 1,
+  "name": "user1"
+}
+```
+다른 예를 보자. 
+```
+/api/address?user_id=1
+```
+응답은 다음과 같이 온다. 
+```json 
+{
+  "Street": "Sim Street", 
+  "city": "New York city"
+}
+```
+
+요청 별로 API를 만든다. 반면에 GraphQL에서는 End point가 하나이다. 
+요청을 보자.
+```
+/graphql 
+
+query { 
+  user(id: 1) {
+    id,   # id을 응답 값으로 요청  
+    name, # name을 응답 값으로 요청
+    addres {  # address를 응답 값으로 요청 
+      street,
+      city 
+    }
+  }
+}
+```
+응답 결과는 요청한 형태로 온다. 즉, query에 나열한 필드를 응답값으로 나열한다. 
+```
+{
+  "user": {
+    "id": 1,    # id를 요청한 경우에 응답 값 
+    "name": "Hong",  # name을 요청한 경우에 응답 값 
+    "address": {   # address를 요청한 경우에 응답 값 
+      "street": Sim street", 
+      "city": "New York City" 
+    }
+  }
+}
+```
+
+
 
 > GraphQL은 페이스북에서 만든 쿼리 언어입니다. GrpahQL은 요즘 개발자들 사이에서 자주 입에 오르내리고 있으나, 2019년 7월 기준으로 얼리스테이지(early-stage)임은 분명합니다. 국내에서 GraphQL API를 Open API로 공개한 곳은 드뭅니다. 또한, 해외의 경우, Github 사례(Github v4 GraphQL)를 찾을 수는 있지만, 전반적으로 GraphQL API를 Open API로 공개한 곳은 많지 않습니다. 하지만 등장한지 얼마되지 않았음에도 불구하고, GraphQL의 인기는 매우 가파르게 올라가고 있다는 사실을 확인 할 수 있습니다.
 
@@ -20,6 +79,16 @@ GraphQL이 무엇인지 살펴 볼 것이다.
   * 스키마/타입(schema/type)
   * 리졸버(resolver)
   * 인트로스펙션(introspection) 
+
+
+
+| Requirement | REST | GraphQL |
+|---|---|---|
+| Fetching data objects | GET | query |
+| Writing data | POST | mutation
+| Updating/deleting data | PUT/PATCH/DELETE | mutation |
+| Watching/subscribing to data | - | subscription |
+
 
 
 
@@ -51,6 +120,15 @@ gql 쿼리문 파싱은 대부분의 gql 라이브러리에서 처리를 하지�
 
 GraphQL에 대한 이해는 [여기](https://hasura.io/learn/graphql/svelte-apollo/intro-to-graphql/)를 방문해 보면 도식이 쉽게 설명이 되어 있다. 
 
+
+
+
+
+## Graphql 테스트 도구 
+### graphql-playground 
+윈도우즈용 설치      
+[graphql-playground](https://github.com/graphql/graphql-playground)      
+[GraphQL Playground](https://www.electronjs.org/apps/graphql-playground)    
 
 
 
