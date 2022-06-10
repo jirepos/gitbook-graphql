@@ -24,7 +24,9 @@ SpringBoot에서 GraphQL 사용하려면 SpringBoot 버전의 제약이 있다.
 ```
 
 ## dependencies 설정 
-pom.xml에 다음을 추가한다. 
+pom.xml에 다음을 추가한다.  SpringBoot 2.7에서 검증하였다. 
+
+> GraphQL Java Kickstart로는 테스트를 못했다. 
 
 ```xml
 		<dependency>
@@ -173,7 +175,7 @@ public class GraphqlConfiguration {
   
 }///~
 ```
-## GraphQL Scheme 정의 
+## GraphQL Schema 정의 
 *.graphqls 파일에 Entity에 해당하는 모델Model, CRUD에 해당하는 쿼리Query 등의 정의를 해본다. src/main/resources 아래 경로에 둔다. 
 ```
 type Post {
@@ -244,6 +246,84 @@ query {
   }
 }
 ```
+
+
+## Custom Scalar Type
+LocalDateTime 형태를 Scalar type으로 사용하려면 먼저 스키마 파일에 타입을 다음과 같이 정의한다. 
+```
+scalar Date
+```
+type에 필드를 정의할 때 정의한 scalar type을 사용한다. 
+```
+
+"""
+종업원
+"""
+type Employee {
+
+  유저아이디
+  """ 
+  userId: String
+  """
+  보안레벨
+  """
+  secLvl: Int
+  # 위에서 정의한 Date scalar type 
+  updDt: Date 
+
+}
+```
+
+GraphQLScalarType 클래스를 상속하여 구현한다. 
+
+```java
+package com.jirepo.core.graphql;
+
+import org.springframework.stereotype.Component;
+
+import graphql.schema.Coercing;
+import graphql.schema.GraphQLScalarType;
+
+
+
+/**
+ * public interface Cosercing<I, O>
+ *  - Input type : 클라이언트에서 받는 타입
+ *  - Ouptut Type : 서버에서 반환하는 타입 
+ */
+@Component
+public class DateSclarType extends GraphQLScalarType {
+    public DateSclarType() {
+        
+        super("Date", "Date scalar type", new Coercing<Object, Object>() {
+            // serialize : dataFetcherResult의 결과로 return되는 java object를 scalar type 에 맞게 변환하기 위한 메소드
+            @Override
+            public Object serialize(Object input) {
+                // 여기서 반환값 처리 
+                return input.toString();
+            }
+
+            // parseValue : query에서 값을 parsing 할 때 사용되는 메소드
+            @Override
+            public Object parseValue(Object input) {
+                // 여기서 입력 값 처리 
+                return input;
+            }
+
+            // parseLiteral : 요청받은 query를 validation 할 때 사용되는 메소드
+            @Override
+            public Object parseLiteral(Object input) {
+                if(input == null) {
+                    return null;
+                }
+                return input.toString();
+            }
+        });
+    }
+    
+}
+```
+
 
 
 ## References 
